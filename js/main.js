@@ -1,32 +1,28 @@
 "use strict";
 
-function Mensaje(autor, texto)
+class Mensaje
 {
-    this.autor = autor;
-    this.texto = texto;
+  constructor(autor, texto, fecha) {
+    this.autor = autor
+    this.texto = texto
+    this.fecha = fecha
+    fecha = new Date()
+    fecha = fecha.toUTCString()
+  }
 }
 
-let fecha = new Date;
-fecha = fecha.toUTCString();
-let mensajes = [
-      new Mensaje("Vero", "hola - " + fecha + "<br>"),
-      new Mensaje("Pedro", "¿que tal? - " + fecha + "<br>"),
-      new Mensaje("Lucia", "bien, gracias - " + fecha + "<br>")
-  ];
+class ListaMensajes
+{
+
+}
 
 let boton = document.getElementById("enviar");
-
-function pasarAText() {
-  let msg = "";
-
-  mensajes.push(new Mensaje(document.getElementById("txtNombreUsuario").innerText.toString(), document.getElementById("listaMensajes").innerText.toString()))
-
-  for (let mens of mensajes){
-    msg += mens.autor.toString() + ":" + mens.texto.toString() + fecha + "<br>"
-  }
-
-  return msg
-}
-
-boton.addEventListener("click", pasarAText);
-document.getElementById("listaMensajes").innerHTML += pasarAText();
+boton.addEventListener("click", function() {
+  let autor = document.getElementById("txtNombreUsuario").value
+  let texto = document.getElementById("chat").value
+  let fecha = new Date
+  let mensaje = new Mensaje(autor, texto, fecha)
+  document.getElementById("listaMensajes").innerHTML += mensaje.autor + ": " + mensaje.texto + " - " + mensaje.fecha.toLocaleDateString() + "<br>"
+  document.getElementById("txtNombreUsuario").value = ""
+  document.getElementById("chat").value = ""
+});
